@@ -1,5 +1,6 @@
 using System;
 using AltV.Net;
+using AltV.Net.Native;
 
 namespace ls.gangwar
 {
@@ -9,7 +10,11 @@ namespace ls.gangwar
 
         public Chat()
         {
-            Alt.Import("chat", "broadcast", out broadcast);
+            var successfully = Alt.Import("chat", "broadcast", out broadcast);
+            if (!successfully)
+            {
+                throw InvalidImportException.Create("chat", "broadcast", MValue.Type.FUNCTION);
+            }
         }
 
         public void Broadcast(string message)
