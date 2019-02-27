@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AltV.Net;
 
 namespace ls.gangwar
 {
@@ -35,28 +36,11 @@ namespace ls.gangwar
 
         private static readonly Dictionary<uint, string> WeaponHashes = new Dictionary<uint, string>();
 
-        private static uint JHash(string key)
-        {
-            var keyLowered = key.ToLower();
-            var length = keyLowered.Length;
-            var chars = keyLowered.ToCharArray();
-            uint hash;
-            uint i;
-            for (hash = i = 0; i < length; i++)
-            {
-                hash += chars[i];
-                hash += hash << 10;
-                hash ^= hash >> 6;
-            }
-
-            return hash;
-        }
-
         static WeaponHelper()
         {
             foreach (var (hash, translation) in Weapons)
             {
-                WeaponHashes[JHash(hash)] = translation;
+                WeaponHashes[Alt.Hash(hash)] = translation;
             }
         }
 
