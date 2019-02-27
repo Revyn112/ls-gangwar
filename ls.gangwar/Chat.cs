@@ -6,13 +6,10 @@ namespace ls.gangwar
     public class Chat
     {
         private readonly Action<string> broadcast;
-        
+
         public Chat()
         {
-            if (Alt.Import("chat", "broadcast", out Action<string> importedBroadcast))
-            {
-                broadcast = importedBroadcast;
-            }
+            Alt.Import("chat", "broadcast", out broadcast);
         }
 
         public void Broadcast(string message)
